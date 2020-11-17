@@ -1,3 +1,4 @@
+using Api.StartUp;
 using API.Connection;
 using API.Repository;
 using API.Service;
@@ -26,6 +27,10 @@ namespace API
       services.AddConns();
       services.AddRepositories();
       services.AddServices();
+
+      services.AddCompression();
+      services.AddHealthCheck();
+      services.AddSwagger();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +40,10 @@ namespace API
       {
         app.UseDeveloperExceptionPage();
       }
+
+      app.ConfigureCompression();
+      app.ConfigureHealthCheck();
+      app.ConfigureSwagger();
 
       app.UseHttpsRedirection();
       app.UseRouting();
