@@ -1,4 +1,5 @@
 using API.Repository;
+using API.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace API
 
       services.AddConnections();
       services.AddRepositories();
+      services.AddServices();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

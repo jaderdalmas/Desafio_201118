@@ -16,8 +16,8 @@ namespace API.Service
     /// Get Items By Pedido Id
     /// </summary>
     /// <param name="id">Pedido Id</param>
-    /// <returns>Pedidos</returns>
-    Task<IEnumerable<PedidoViewModel>> Get(int id);
+    /// <returns>Pedido</returns>
+    Task<PedidoViewModel> Get(int id);
 
     /// <summary>
     /// Insert|Update Pedido
