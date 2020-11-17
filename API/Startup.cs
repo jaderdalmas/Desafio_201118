@@ -1,3 +1,4 @@
+using API.Connection;
 using API.Repository;
 using API.Service;
 using Microsoft.AspNetCore.Builder;
@@ -22,7 +23,7 @@ namespace API
     {
       services.AddControllers();
 
-      services.AddConnections();
+      services.AddConns();
       services.AddRepositories();
       services.AddServices();
     }

@@ -14,7 +14,7 @@ namespace API.Connection
     /// </summary>
     /// <param name="services">service collection</param>
     /// <returns>service collection</returns>
-    public static IServiceCollection AddConnections(this IServiceCollection services)
+    public static IServiceCollection AddConns(this IServiceCollection services)
     {
       services.AddScoped<IDbCnn, PedidoSqlCnn>();
 
