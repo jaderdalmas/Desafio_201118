@@ -1,20 +1,12 @@
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace API.Model
 {
   public class Pedido
   {
-    /// <summary>
-    /// Número do Pedido
-    /// </summary>
-    [JsonPropertyName("pedido")]
-    public int Numero { get; set; }
+    public int Id { get; set; }
 
-    /// <summary>
-    /// Itens do Pedido
-    /// </summary>
-    [JsonPropertyName("itens")]
-    public List<Item> Itens { get; set; }
+    [Required]
+    public string Status { get; set; }
   }
 }
