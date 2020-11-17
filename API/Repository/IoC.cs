@@ -17,7 +17,6 @@ namespace API.Repository
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
       services.AddScoped<IItemRepository, ItemRepository>();
-      services.AddScoped<IPedidoRepository, PedidoRepository>();
 
       return services;
     }
