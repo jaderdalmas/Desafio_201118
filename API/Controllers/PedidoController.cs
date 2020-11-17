@@ -21,7 +21,7 @@ namespace API.Controllers
       _pedidoService = pedidoService;
     }
 
-    [HttpGet]
+    [HttpGet("[action]")]
     public async Task<IEnumerable<PedidoViewModel>> GetAll() => await _pedidoService.GetAll().ConfigureAwait(false);
 
     [HttpGet]

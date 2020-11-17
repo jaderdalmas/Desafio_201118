@@ -24,7 +24,7 @@ namespace IntegrationTest.Controller
       var client = _factory.CreateClient();
 
       // Act
-      var response = await client.GetAsync("/Pedido");
+      var response = await client.GetAsync("/Pedido/GetAll");
 
       // Assert
       Assert.Equal(HttpStatusCode.OK, response.StatusCode);
