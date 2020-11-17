@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{73F32FE8-E63A-4EEE-950F-670E3EA2EB20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest", "IntegrationTest\IntegrationTest.csproj", "{DF8E4D53-619E-4569-A11E-5EB003BF24C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{73F32FE8-E63A-4EEE-950F-670E3EA2EB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73F32FE8-E63A-4EEE-950F-670E3EA2EB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73F32FE8-E63A-4EEE-950F-670E3EA2EB20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF8E4D53-619E-4569-A11E-5EB003BF24C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF8E4D53-619E-4569-A11E-5EB003BF24C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF8E4D53-619E-4569-A11E-5EB003BF24C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF8E4D53-619E-4569-A11E-5EB003BF24C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
