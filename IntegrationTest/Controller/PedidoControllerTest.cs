@@ -1,4 +1,5 @@
 using API;
+using API.Extension;
 using API.ViewModel;
 using System.Collections.Generic;
 using System.Net;
@@ -34,6 +35,78 @@ namespace IntegrationTest.Controller
 
       var list = JsonSerializer.Deserialize<IEnumerable<PedidoViewModel>>(result);
       Assert.Empty(list);
+    }
+
+    [Fact]
+    public async Task Get_404()
+    {
+      // Arrange
+      var client = _factory.CreateClient();
+
+      // Act
+      var response = await client.GetAsync($"/Pedido/1");
+
+      // Assert
+      Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+
+      var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      Assert.Empty(result);
+    }
+
+    [Fact]
+    public async Task Post_Empty()
+    {
+      // Arrange
+      var client = _factory.CreateClient();
+      var pedido = new PedidoViewModel();
+
+      // Act
+      var response = await client.PostAsync("/Pedido", pedido.AsContent());
+
+      // Assert
+      Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+      var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      Assert.NotEmpty(result);
+
+      var item = JsonSerializer.Deserialize<bool>(result);
+      Assert.False(item);
+    }
+
+    [Fact]
+    public async Task Put_Empty()
+    {
+      // Arrange
+      var client = _factory.CreateClient();
+      var pedido = new PedidoViewModel();
+
+      // Act
+      var response = await client.PutAsync("/Pedido", pedido.AsContent());
+
+      // Assert
+      Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+      var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      Assert.NotEmpty(result);
+
+      var item = JsonSerializer.Deserialize<bool>(result);
+      Assert.False(item);
+    }
+
+    [Fact]
+    public async Task Delete_404()
+    {
+      // Arrange
+      var client = _factory.CreateClient();
+
+      // Act
+      var response = await client.DeleteAsync($"/Pedido/1");
+
+      // Assert
+      Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+
+      var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      Assert.Empty(result);
     }
   }
 }
