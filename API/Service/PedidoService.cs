@@ -31,7 +31,7 @@ namespace API.Service
 
       var list = await _itemRepository.GetByPedido(id).ConfigureAwait(false);
 
-      return list?.GroupBy(x => x.IdPedido).Select(x => new PedidoViewModel(x)).FirstOrDefault() ?? new PedidoViewModel();
+      return list?.GroupBy(x => x.IdPedido).Select(x => new PedidoViewModel(x)).FirstOrDefault();
     }
 
     public async Task<bool> InsertUpdate(PedidoViewModel pedido)
