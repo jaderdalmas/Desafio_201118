@@ -1,9 +1,21 @@
+using API.Model;
 using System.Text.Json.Serialization;
 
 namespace API.ViewModel
 {
-  public class Item
+  public class ItemViewModel
   {
+    public ItemViewModel() { }
+
+    public ItemViewModel(Item item)
+    {
+      if (item is null) return;
+
+      Descricao = item.Descricao;
+      PrecoUnitario = item.PrecoUnitario;
+      Quantidade = item.Quantidade;
+    }
+
     /// <summary>
     /// Descrição
     /// </summary>
