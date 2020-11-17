@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace API.Controllers
 {
   [ApiController]
-  [Route("[controller]")]
+  [Route("api/[controller]")]
   public class PedidoController : ControllerBase
   {
     private readonly ILogger<PedidoController> _logger;

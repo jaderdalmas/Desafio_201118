@@ -42,7 +42,7 @@ namespace IntegrationTest.Controller
       var client = _factory.CreateClient();
 
       // Act
-      var response = await client.GetAsync("/Pedido/GetAll");
+      var response = await client.GetAsync("api/Pedido/GetAll");
 
       // Assert
       Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -61,7 +61,7 @@ namespace IntegrationTest.Controller
       var client = _factory.CreateClient();
 
       // Act
-      var response = await client.GetAsync($"/Pedido/1");
+      var response = await client.GetAsync($"api/Pedido/1");
 
       // Assert
       Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
@@ -78,8 +78,8 @@ namespace IntegrationTest.Controller
       var pedido = Pedido;
 
       // Act
-      client.PostAsync($"/Pedido", pedido.AsContent()).Wait();
-      var response = await client.GetAsync($"/Pedido/{pedido.Numero}");
+      client.PostAsync($"api/Pedido", pedido.AsContent()).Wait();
+      var response = await client.GetAsync($"api/Pedido/{pedido.Numero}");
 
       // Assert
       Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -92,7 +92,7 @@ namespace IntegrationTest.Controller
       Assert.NotEmpty(item.Itens);
 
       // Clean
-      client.DeleteAsync($"/Pedido/{pedido.Numero}").Wait();
+      client.DeleteAsync($"api/Pedido/{pedido.Numero}").Wait();
     }
 
     [Fact]
@@ -103,7 +103,7 @@ namespace IntegrationTest.Controller
       var pedido = new PedidoViewModel();
 
       // Act
-      var response = await client.PostAsync("/Pedido", pedido.AsContent());
+      var response = await client.PostAsync("api/Pedido", pedido.AsContent());
 
       // Assert
       Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -123,7 +123,7 @@ namespace IntegrationTest.Controller
       var pedido = Pedido;
 
       // Act
-      var response = await client.PostAsync("/Pedido", pedido.AsContent());
+      var response = await client.PostAsync("api/Pedido", pedido.AsContent());
 
       // Assert
       Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -135,7 +135,7 @@ namespace IntegrationTest.Controller
       Assert.True(item);
 
       // Clean
-      client.DeleteAsync($"/Pedido/{pedido.Numero}").Wait();
+      client.DeleteAsync($"api/Pedido/{pedido.Numero}").Wait();
     }
 
     [Fact]
@@ -146,7 +146,7 @@ namespace IntegrationTest.Controller
       var pedido = new PedidoViewModel();
 
       // Act
-      var response = await client.PutAsync("/Pedido", pedido.AsContent());
+      var response = await client.PutAsync("api/Pedido", pedido.AsContent());
 
       // Assert
       Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -166,7 +166,7 @@ namespace IntegrationTest.Controller
       var pedido = Pedido;
 
       // Act
-      var response = await client.PutAsync("/Pedido", pedido.AsContent());
+      var response = await client.PutAsync("api/Pedido", pedido.AsContent());
 
       // Assert
       Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -178,7 +178,7 @@ namespace IntegrationTest.Controller
       Assert.True(item);
 
       // Clean
-      client.DeleteAsync($"/Pedido/{pedido.Numero}").Wait();
+      client.DeleteAsync($"api/Pedido/{pedido.Numero}").Wait();
     }
 
     [Fact]
@@ -188,7 +188,7 @@ namespace IntegrationTest.Controller
       var client = _factory.CreateClient();
 
       // Act
-      var response = await client.DeleteAsync($"/Pedido/1");
+      var response = await client.DeleteAsync($"api/Pedido/1");
 
       // Assert
       Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -208,8 +208,8 @@ namespace IntegrationTest.Controller
       var pedido = Pedido;
 
       // Act
-      client.PostAsync($"/Pedido", pedido.AsContent()).Wait();
-      var response = await client.DeleteAsync($"/Pedido/{pedido.Numero}");
+      client.PostAsync($"api/Pedido", pedido.AsContent()).Wait();
+      var response = await client.DeleteAsync($"api/Pedido/{pedido.Numero}");
 
       // Assert
       Assert.Equal(HttpStatusCode.OK, response.StatusCode);
