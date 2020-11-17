@@ -4,37 +4,37 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.StartUp
 {
+  /// <summary>
+  /// Compressão de dados
+  /// </summary>
+  public static class Compression
+  {
     /// <summary>
-    /// Compressão de dados
+    /// Register
     /// </summary>
-    public static class Compression
+    /// <param name="services">Services</param>
+    public static void AddCompression(this IServiceCollection services)
     {
-        /// <summary>
-        /// Register
-        /// </summary>
-        /// <param name="services">Services</param>
-        public static void AddCompression(this IServiceCollection services)
-        {
-            services.Configure<GzipCompressionProviderOptions>(options =>
-            {
-                options.Level = System.IO.Compression.CompressionLevel.Optimal;
-            });
+      services.Configure<GzipCompressionProviderOptions>(options =>
+      {
+        options.Level = System.IO.Compression.CompressionLevel.Optimal;
+      });
 
-            services.AddResponseCompression(options =>
-            {
-                options.Providers.Add<GzipCompressionProvider>();
-                options.Providers.Add<BrotliCompressionProvider>();
-                options.EnableForHttps = true;
-            });
-        }
-
-        /// <summary>
-        /// Configure
-        /// </summary>
-        /// <param name="app">Application</param>
-        public static void ConfigureCompression(this IApplicationBuilder app)
-        {
-            app.UseResponseCompression();
-        }
+      services.AddResponseCompression(options =>
+      {
+        options.Providers.Add<GzipCompressionProvider>();
+        options.Providers.Add<BrotliCompressionProvider>();
+        options.EnableForHttps = true;
+      });
     }
+
+    /// <summary>
+    /// Configure
+    /// </summary>
+    /// <param name="app">Application</param>
+    public static void ConfigureCompression(this IApplicationBuilder app)
+    {
+      app.UseResponseCompression();
+    }
+  }
 }
