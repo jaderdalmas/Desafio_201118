@@ -1,10 +1,11 @@
 using API.Model;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace API.Repository
 {
   public interface IPedidoRepository
   {
-    IEnumerable<Pedido> GetAll();
+    Task<IEnumerable<Pedido>> GetAll();
   }
 }
