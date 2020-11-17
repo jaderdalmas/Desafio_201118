@@ -1,6 +1,7 @@
 using API;
 using API.Extension;
 using API.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.Json;
@@ -12,6 +13,22 @@ namespace IntegrationTest.Controller
   public class PedidoControllerTest : IClassFixture<TestApplicationFactory<Startup>>
   {
     private readonly TestApplicationFactory<Startup> _factory;
+    private PedidoViewModel Pedido => new PedidoViewModel()
+    {
+      Numero = new Random().Next(0, int.MaxValue).ToString(),
+      Itens = new List<ItemViewModel>() {
+        new ItemViewModel(){
+          Descricao = "Item A",
+          PrecoUnitario = 10,
+          Quantidade = 1
+        },
+        new ItemViewModel(){
+          Descricao = "Item B",
+          PrecoUnitario = 5,
+          Quantidade = 2
+        }
+      }
+    };
 
     public PedidoControllerTest(TestApplicationFactory<Startup> factory)
     {
@@ -38,7 +55,7 @@ namespace IntegrationTest.Controller
     }
 
     [Fact]
-    public async Task Get_404()
+    public async Task Get_Empty()
     {
       // Arrange
       var client = _factory.CreateClient();
@@ -47,10 +64,35 @@ namespace IntegrationTest.Controller
       var response = await client.GetAsync($"/Pedido/1");
 
       // Assert
-      Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+      Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
 
       var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
       Assert.Empty(result);
+    }
+
+    [Fact]
+    public async Task Get()
+    {
+      // Arrange
+      var client = _factory.CreateClient();
+      var pedido = Pedido;
+
+      // Act
+      client.PostAsync($"/Pedido", pedido.AsContent()).Wait();
+      var response = await client.GetAsync($"/Pedido/{pedido.Numero}");
+
+      // Assert
+      Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+      var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      Assert.NotEmpty(result);
+
+      var item = JsonSerializer.Deserialize<PedidoViewModel>(result);
+      Assert.NotNull(item);
+      Assert.NotEmpty(item.Itens);
+
+      // Clean
+      client.DeleteAsync($"/Pedido/{pedido.Numero}").Wait();
     }
 
     [Fact]
@@ -74,6 +116,29 @@ namespace IntegrationTest.Controller
     }
 
     [Fact]
+    public async Task Post()
+    {
+      // Arrange
+      var client = _factory.CreateClient();
+      var pedido = Pedido;
+
+      // Act
+      var response = await client.PostAsync("/Pedido", pedido.AsContent());
+
+      // Assert
+      Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+      var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      Assert.NotEmpty(result);
+
+      var item = JsonSerializer.Deserialize<bool>(result);
+      Assert.True(item);
+
+      // Clean
+      client.DeleteAsync($"/Pedido/{pedido.Numero}").Wait();
+    }
+
+    [Fact]
     public async Task Put_Empty()
     {
       // Arrange
@@ -94,7 +159,30 @@ namespace IntegrationTest.Controller
     }
 
     [Fact]
-    public async Task Delete_404()
+    public async Task Put()
+    {
+      // Arrange
+      var client = _factory.CreateClient();
+      var pedido = Pedido;
+
+      // Act
+      var response = await client.PutAsync("/Pedido", pedido.AsContent());
+
+      // Assert
+      Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+      var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      Assert.NotEmpty(result);
+
+      var item = JsonSerializer.Deserialize<bool>(result);
+      Assert.True(item);
+
+      // Clean
+      client.DeleteAsync($"/Pedido/{pedido.Numero}").Wait();
+    }
+
+    [Fact]
+    public async Task Delete_False()
     {
       // Arrange
       var client = _factory.CreateClient();
@@ -103,10 +191,34 @@ namespace IntegrationTest.Controller
       var response = await client.DeleteAsync($"/Pedido/1");
 
       // Assert
-      Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+      Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
       var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-      Assert.Empty(result);
+      Assert.NotEmpty(result);
+
+      var item = JsonSerializer.Deserialize<bool>(result);
+      Assert.False(item);
+    }
+
+    [Fact]
+    public async Task Delete_True()
+    {
+      // Arrange
+      var client = _factory.CreateClient();
+      var pedido = Pedido;
+
+      // Act
+      client.PostAsync($"/Pedido", pedido.AsContent()).Wait();
+      var response = await client.DeleteAsync($"/Pedido/{pedido.Numero}");
+
+      // Assert
+      Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+      var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      Assert.NotEmpty(result);
+
+      var item = JsonSerializer.Deserialize<bool>(result);
+      Assert.True(item);
     }
   }
 }
