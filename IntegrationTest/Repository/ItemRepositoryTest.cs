@@ -1,6 +1,7 @@
 using API;
 using API.Model;
 using API.Repository;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -9,18 +10,21 @@ namespace IntegrationTest.Repository
 {
   public class ItemRepositoryTest : IClassFixture<TestApplicationFactory<Startup>>
   {
-    private IItemRepository _repos;
+    private readonly IServiceScope _serviceScope;
+    private IServiceProvider ServiceProvider => _serviceScope.ServiceProvider;
 
-    public ItemRepositoryTest(IItemRepository itemRepository)
+    private IItemRepository Repos => ServiceProvider.GetService<IItemRepository>();
+
+    public ItemRepositoryTest(TestApplicationFactory<Startup> factory)
     {
-      _repos = itemRepository;
+      _serviceScope = factory.Services.CreateScope();
     }
 
     [Fact]
     public async Task GetAll_Empty()
     {
       // Act
-      var list = await _repos.GetAll().ConfigureAwait(false);
+      var list = await Repos.GetAll().ConfigureAwait(false);
 
       // Assert
       Assert.Empty(list);
@@ -31,21 +35,21 @@ namespace IntegrationTest.Repository
     {
       // Arrange
       var item = new Item() { Descricao = "Descrição" };
-      var id = await _repos.Insert(item).ConfigureAwait(false);
+      var id = await Repos.Insert(item).ConfigureAwait(false);
 
       // Act
-      var list = await _repos.GetAll().ConfigureAwait(false);
+      var list = await Repos.GetAll().ConfigureAwait(false);
 
       // Assert
       Assert.NotEmpty(list);
-      _repos.Delete(id).Wait();
+      Repos.Delete(id).Wait();
     }
 
     [Fact]
     public async Task Get_Null()
     {
       // Act
-      var pedido = await _repos.Get(0).ConfigureAwait(false);
+      var pedido = await Repos.Get(0).ConfigureAwait(false);
 
       // Assert
       Assert.Null(pedido);
@@ -56,21 +60,21 @@ namespace IntegrationTest.Repository
     {
       // Arrange
       var pedido = new Item() { Descricao = "Descrição" };
-      var id = await _repos.Insert(pedido).ConfigureAwait(false);
+      var id = await Repos.Insert(pedido).ConfigureAwait(false);
 
       // Act
-      pedido = await _repos.Get(id).ConfigureAwait(false);
+      pedido = await Repos.Get(id).ConfigureAwait(false);
 
       // Assert
       Assert.NotNull(pedido);
-      _repos.Delete(id).Wait();
+      Repos.Delete(id).Wait();
     }
 
     [Fact]
     public async Task GetByPedido_Empty()
     {
       // Act
-      var list = await _repos.GetByPedido(1).ConfigureAwait(false);
+      var list = await Repos.GetByPedido(1).ConfigureAwait(false);
 
       // Assert
       Assert.Empty(list);
@@ -82,14 +86,14 @@ namespace IntegrationTest.Repository
       // Arrange
       var idPedido = new Random().Next(1, int.MaxValue);
       var pedido = new Item() { IdPedido = idPedido, Descricao = "Descrição" };
-      var id = await _repos.Insert(pedido).ConfigureAwait(false);
+      var id = await Repos.Insert(pedido).ConfigureAwait(false);
 
       // Act
-      var list = await _repos.GetByPedido(idPedido).ConfigureAwait(false);
+      var list = await Repos.GetByPedido(idPedido).ConfigureAwait(false);
 
       // Assert
       Assert.NotEmpty(list);
-      _repos.Delete(id).Wait();
+      Repos.Delete(id).Wait();
     }
 
     [Fact]
@@ -99,7 +103,7 @@ namespace IntegrationTest.Repository
       Item item = null;
 
       // Act
-      var id = await _repos.Insert(item).ConfigureAwait(false);
+      var id = await Repos.Insert(item).ConfigureAwait(false);
 
       // Assert
       Assert.Equal(-1, id);
@@ -112,11 +116,11 @@ namespace IntegrationTest.Repository
       var item = new Item() { Descricao = "Descrição" };
 
       // Act
-      var id = await _repos.Insert(item).ConfigureAwait(false);
+      var id = await Repos.Insert(item).ConfigureAwait(false);
 
       // Assert
       Assert.True(id > 0);
-      _repos.Delete(id).Wait();
+      Repos.Delete(id).Wait();
     }
 
     [Fact]
@@ -126,7 +130,7 @@ namespace IntegrationTest.Repository
       Item item = null;
 
       // Act
-      var updated = await _repos.Update(item).ConfigureAwait(false);
+      var updated = await Repos.Update(item).ConfigureAwait(false);
 
       // Assert
       Assert.False(updated);
@@ -140,7 +144,7 @@ namespace IntegrationTest.Repository
 
       // Act
       item.Descricao = "Outra";
-      var updated = await _repos.Update(item).ConfigureAwait(false);
+      var updated = await Repos.Update(item).ConfigureAwait(false);
 
       // Assert
       Assert.False(updated);
@@ -151,22 +155,22 @@ namespace IntegrationTest.Repository
     {
       // Arrange
       var item = new Item() { Descricao = "Descrição" };
-      var id = await _repos.Insert(item).ConfigureAwait(false);
+      var id = await Repos.Insert(item).ConfigureAwait(false);
 
       // Act
       item.Descricao = "Outra";
-      var updated = await _repos.Update(item).ConfigureAwait(false);
+      var updated = await Repos.Update(item).ConfigureAwait(false);
 
       // Assert
       Assert.True(updated);
-      _repos.Delete(id).Wait();
+      Repos.Delete(id).Wait();
     }
 
     [Fact]
     public async Task Delete_0()
     {
       // Act
-      var deleted = await _repos.Delete(0).ConfigureAwait(false);
+      var deleted = await Repos.Delete(0).ConfigureAwait(false);
 
       // Assert
       Assert.False(deleted);
@@ -177,10 +181,10 @@ namespace IntegrationTest.Repository
     {
       // Arrange
       var item = new Item() { Descricao = "Descrição" };
-      var id = await _repos.Insert(item).ConfigureAwait(false);
+      var id = await Repos.Insert(item).ConfigureAwait(false);
 
       // Act
-      var deleted = await _repos.Delete(id).ConfigureAwait(false);
+      var deleted = await Repos.Delete(id).ConfigureAwait(false);
 
       // Assert
       Assert.True(deleted);
@@ -190,7 +194,7 @@ namespace IntegrationTest.Repository
     public async Task DeleteByPedido_Empty()
     {
       // Act
-      var deleted = await _repos.DeleteByPedido(1).ConfigureAwait(false);
+      var deleted = await Repos.DeleteByPedido(1).ConfigureAwait(false);
 
       // Assert
       Assert.False(deleted);
@@ -202,10 +206,10 @@ namespace IntegrationTest.Repository
       // Arrange
       var id = new Random().Next(1, int.MaxValue);
       var item = new Item() { IdPedido = id, Descricao = "Descrição" };
-      _ = await _repos.Insert(item).ConfigureAwait(false);
+      _ = await Repos.Insert(item).ConfigureAwait(false);
 
       // Act
-      var deleted = await _repos.DeleteByPedido(item.IdPedido).ConfigureAwait(false);
+      var deleted = await Repos.DeleteByPedido(item.IdPedido).ConfigureAwait(false);
 
       // Assert
       Assert.True(deleted);
