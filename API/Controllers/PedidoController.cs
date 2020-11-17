@@ -24,7 +24,7 @@ namespace API.Controllers
     [HttpGet("[action]")]
     public async Task<IEnumerable<PedidoViewModel>> GetAll() => await _pedidoService.GetAll().ConfigureAwait(false);
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<PedidoViewModel> Get(int id) => await _pedidoService.Get(id).ConfigureAwait(false);
 
     [HttpPost]
@@ -33,7 +33,7 @@ namespace API.Controllers
     [HttpPut]
     public async Task<bool> Put(PedidoViewModel pedido) => await _pedidoService.InsertUpdate(pedido).ConfigureAwait(false);
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<bool> Delete(int id) => await _pedidoService.Delete(id).ConfigureAwait(false);
   }
 }
