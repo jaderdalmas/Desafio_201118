@@ -5,6 +5,17 @@ namespace API.ViewModel
 {
   public class StatusResponse
   {
+    public StatusResponse()
+    {
+      Status = new List<string>();
+    }
+
+    public StatusResponse(string pedido)
+    {
+      Pedido = pedido;
+      Status = new List<string>();
+    }
+
     /// <summary>
     /// Status
     /// </summary>
