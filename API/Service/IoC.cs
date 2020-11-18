@@ -17,6 +17,7 @@ namespace API.Service
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
       services.AddScoped<IPedidoService, PedidoService>();
+      services.AddScoped<IStatusService, StatusService>();
 
       return services;
     }
