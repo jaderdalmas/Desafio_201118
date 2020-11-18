@@ -38,6 +38,28 @@ namespace IntegrationTest.Controller
     }
 
     [Fact]
+    public async Task Post_Null()
+    {
+      // Arrange
+      var client = _factory.CreateClient();
+      StatusRequest status = null;
+
+      // Act
+      var response = await client.PostAsync("api/Status", status.AsContent());
+
+      // Assert
+      Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+      var result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+      Assert.NotEmpty(result);
+
+      var item = JsonSerializer.Deserialize<ProblemDetails>(result);
+      Assert.NotEmpty(item.Title);
+      Assert.NotEmpty(item.Type);
+      Assert.NotEmpty(item.Extensions);
+    }
+
+    [Fact]
     public async Task Post_BadRequest()
     {
       // Arrange
