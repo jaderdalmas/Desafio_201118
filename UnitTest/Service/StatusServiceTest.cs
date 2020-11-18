@@ -25,10 +25,7 @@ namespace UnitTest.Service
       var result = await service.Update(status).ConfigureAwait(false);
 
       // Assert
-      Assert.NotNull(result);
-      Assert.Null(result.Pedido);
-      Assert.NotEmpty(result.Status);
-      Assert.Equal("CODIGO_PEDIDO_INVALIDO", result.Status.First());
+      Assert.Null(result);
     }
 
     [Fact]
@@ -43,10 +40,7 @@ namespace UnitTest.Service
       var result = await service.Update(status).ConfigureAwait(false);
 
       // Assert
-      Assert.NotNull(result);
-      Assert.Null(result.Pedido);
-      Assert.NotEmpty(result.Status);
-      Assert.Equal("CODIGO_PEDIDO_INVALIDO", result.Status.First());
+      Assert.Null(result);
     }
 
     [Fact]
@@ -55,14 +49,20 @@ namespace UnitTest.Service
       // Arrange
       var repos = new Mock<IItemRepository>();
       var service = new StatusService(repos.Object);
-      var status = new StatusRequest() { Pedido = "x", Status = "x" };
+      var status = new StatusRequest()
+      {
+        Pedido = "x",
+        Status = "x",
+        ItensAprovados = 1,
+        ValorAprovado = 0
+      };
 
       // Act
       var result = await service.Update(status).ConfigureAwait(false);
 
       // Assert
       Assert.NotNull(result);
-      Assert.Equal(status.Pedido, result.Pedido);
+      Assert.NotEmpty(result.Pedido);
       Assert.NotEmpty(result.Status);
       Assert.Equal("CODIGO_PEDIDO_INVALIDO", result.Status.First());
     }
