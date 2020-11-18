@@ -40,8 +40,10 @@ namespace IntegrationTest.Controller
     {
       // Arrange
       var client = _factory.CreateClient();
+      var pedido = Pedido;
 
       // Act
+      client.PostAsync($"api/Pedido", pedido.AsContent()).Wait();
       var response = await client.GetAsync("api/Pedido/GetAll");
 
       // Assert
@@ -51,7 +53,10 @@ namespace IntegrationTest.Controller
       Assert.NotEmpty(result);
 
       var list = JsonSerializer.Deserialize<IEnumerable<PedidoViewModel>>(result);
-      Assert.Empty(list);
+      Assert.NotEmpty(list);
+
+      // Clean
+      client.DeleteAsync($"api/Pedido/{pedido.Numero}").Wait();
     }
 
     [Fact]

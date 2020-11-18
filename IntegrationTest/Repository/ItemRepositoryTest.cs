@@ -21,16 +21,6 @@ namespace IntegrationTest.Repository
     }
 
     [Fact]
-    public async Task GetAll_Empty()
-    {
-      // Act
-      var list = await Repos.GetAll().ConfigureAwait(false);
-
-      // Assert
-      Assert.Empty(list);
-    }
-
-    [Fact]
     public async Task GetAll()
     {
       // Arrange
