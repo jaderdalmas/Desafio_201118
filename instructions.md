@@ -1,8 +1,8 @@
 # Desafio_201118 --> Intructions
-Para a execuÁ„o da aplicaÁ„o vocÍ deve alterar a Connection String no arquivo appsettings.json em todos os projetos que desejar, uma vez que os testes de integraÁ„o tambÈm conectam no banco de dados.
+Para a execu√ß√£o da aplica√ß√£o voc√™ deve alterar a Connection String no arquivo appsettings.json em todos os projetos que desejar, uma vez que os testes de integra√ß√£o tamb√©m conectam no banco de dados.
 
-# Testes Manuais & DocumentaÁ„o--> Swagger | /swagger
-Acesse o swagger para saber mais, quando a aplicaÁ„o È executada, por padr„o a aplicaÁ„o te redirecionar· para esta p·gina, n„o se preocupe ;)
+# Testes Manuais & Documenta√ß√£o --> Swagger | /swagger
+Acesse o swagger para saber mais, quando a aplica√ß√£o √© executada, por padr√£o a aplica√ß√£o te redirecionar√° para esta p√°gina, n√£o se preocupe.
 
-# Health Check --> Sa˙de | /health
-Para a sua sa˙de e a da aplicaÁ„o, acesse este link para saber se est· tudo do modo que a aplicaÁ„o precisa para ser executada.
+# Health Check --> Sa√∫de | /health
+Para a sua sa√∫de e a da aplica√ß√£o, acesse este link para saber se est√° tudo do modo que a aplica√ß√£o precisa para ser executada ;)
