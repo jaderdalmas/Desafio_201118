@@ -2,6 +2,7 @@
 using API.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -37,6 +38,8 @@ namespace API.Controllers
     /// <param name="id">Pedido Id</param>
     /// <returns>Pedido</returns>
     [HttpGet("{id}")]
+    [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PedidoViewModel))]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
     public async Task<PedidoViewModel> Get(int id) => await _pedidoService.Get(id).ConfigureAwait(false);
 
     /// <summary>
