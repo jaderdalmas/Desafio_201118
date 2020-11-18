@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace API.ViewModel
 {
+  /// <summary>
+  /// View Model Status Request
+  /// </summary>
   public class StatusRequest
   {
     /// <summary>

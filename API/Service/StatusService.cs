@@ -1,12 +1,12 @@
 using API.Extension;
 using API.Repository;
 using API.ViewModel;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Service
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public class StatusService : IStatusService
   {
     private readonly IItemRepository _itemRepository;
@@ -63,4 +63,5 @@ namespace API.Service
       return result;
     }
   }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

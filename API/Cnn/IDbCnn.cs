@@ -3,8 +3,14 @@ using System.Data;
 
 namespace API.Connection
 {
+  /// <summary>
+  /// DataBase Connection
+  /// </summary>
   public interface IDbCnn : IHealthCheck
   {
+    /// <summary>
+    /// Schema
+    /// </summary>
     string Schema { get; }
 
     /// <summary>

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace API
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public class Startup
   {
     public Startup(IConfiguration configuration)
@@ -54,4 +55,5 @@ namespace API
       });
     }
   }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

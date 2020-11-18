@@ -1,25 +1,33 @@
 ﻿using API.Service;
 using API.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+  /// <summary>
+  /// Status Controller
+  /// </summary>
   [ApiController]
   [Route("api/[controller]")]
   public class StatusController : ControllerBase
   {
-    private readonly ILogger<StatusController> _logger;
     private readonly IStatusService _statusService;
 
-    public StatusController(ILogger<StatusController> logger, IStatusService statusService)
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="statusService">status service</param>
+    public StatusController(IStatusService statusService)
     {
-      _logger = logger;
-
       _statusService = statusService;
     }
 
+    /// <summary>
+    /// Update Status
+    /// </summary>
+    /// <param name="status">Status request</param>
+    /// <returns>Status response</returns>
     [HttpPost]
     public async Task<StatusResponse> Post(StatusRequest status) => await _statusService.Update(status).ConfigureAwait(false);
   }

@@ -5,10 +5,20 @@ using System.Text.Json.Serialization;
 
 namespace API.ViewModel
 {
+  /// <summary>
+  /// View Model Pedido
+  /// </summary>
   public class PedidoViewModel
   {
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public PedidoViewModel() { }
 
+    /// <summary>
+    /// Constructor (convert from db)
+    /// </summary>
+    /// <param name="item">item</param>
     public PedidoViewModel(Item item)
     {
       if (item is null) return;
@@ -17,6 +27,10 @@ namespace API.ViewModel
       Itens = new List<ItemViewModel>() { new ItemViewModel(item) };
     }
 
+    /// <summary>
+    /// Constructor (convert from db)
+    /// </summary>
+    /// <param name="group">group of items</param>
     public PedidoViewModel(IGrouping<int, Item> group)
     {
       if (group is null) return;

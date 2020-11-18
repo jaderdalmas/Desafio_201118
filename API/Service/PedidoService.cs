@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace API.Service
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public class PedidoService : IPedidoService
   {
     private readonly IItemRepository _itemRepository;
@@ -56,4 +57,5 @@ namespace API.Service
       return await _itemRepository.DeleteByPedido(id).ConfigureAwait(false);
     }
   }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace API.Repository
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public class ItemRepository : IItemRepository
   {
     private readonly IDbCnn _cnn;
@@ -77,4 +78,5 @@ namespace API.Repository
       return await _cnn.GetConnection().ExecuteAsync($"delete {TableName} where idPedido = {idPedido}").ConfigureAwait(false) > 0;
     }
   }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

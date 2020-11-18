@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace API.Service
 {
+  /// <summary>
+  /// Status Service
+  /// </summary>
   public interface IStatusService
   {
     /// <summary>

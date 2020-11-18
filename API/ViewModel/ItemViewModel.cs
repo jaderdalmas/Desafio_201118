@@ -3,10 +3,20 @@ using System.Text.Json.Serialization;
 
 namespace API.ViewModel
 {
+  /// <summary>
+  /// View Model Item
+  /// </summary>
   public class ItemViewModel
   {
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public ItemViewModel() { }
 
+    /// <summary>
+    /// Constructor (convert from db)
+    /// </summary>
+    /// <param name="item">Db Item</param>
     public ItemViewModel(Item item)
     {
       if (item is null) return;

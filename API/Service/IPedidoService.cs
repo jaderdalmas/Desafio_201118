@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace API.Service
 {
+  /// <summary>
+  /// Pedido Service
+  /// </summary>
   public interface IPedidoService
   {
     /// <summary>

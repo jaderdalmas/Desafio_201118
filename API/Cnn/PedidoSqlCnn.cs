@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace API.Connection
 {
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
   public class PedidoSqlCnn : IDbCnn
   {
     private readonly ILogger _log;
@@ -100,4 +102,5 @@ namespace API.Connection
       return !string.IsNullOrEmpty(table);
     }
   }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
