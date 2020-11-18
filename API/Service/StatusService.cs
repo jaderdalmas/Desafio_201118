@@ -18,13 +18,11 @@ namespace API.Service
 
     public async Task<StatusResponse> Update(StatusRequest status)
     {
-      var result = new StatusResponse()
-      {
-        Pedido = status?.Pedido,
-        Status = new List<string>()
-      };
+      if (status is null || !status.IsValid())
+        return null;
 
-      if (status is null || !status.IsValid() || !int.TryParse(status.Pedido, out int idPedido))
+      var result = new StatusResponse(status.Pedido);
+      if (!int.TryParse(status.Pedido, out int idPedido))
       {
         result.Status.Add("CODIGO_PEDIDO_INVALIDO");
         return result;
@@ -38,10 +36,7 @@ namespace API.Service
       }
 
       if (status.Status.ToUpperInvariant() == "REPROVADO")
-      {
         result.Status.Add(status.Status.ToUpperInvariant());
-        return result;
-      }
 
       if (status.Status.ToUpperInvariant() == "APROVADO")
       {
